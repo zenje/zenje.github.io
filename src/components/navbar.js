@@ -18,7 +18,7 @@ const StyledNav = styled.nav`
   }
   .nav-link {
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 500;
     text-align: center;
     position: relative;
     padding: 0;

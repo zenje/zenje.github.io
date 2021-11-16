@@ -13,7 +13,7 @@ import { lightTheme, darkTheme } from "../../styles/theme"
 
 const StyledSection = styled.section`
   width: 100%;
-  height: auto;
+  height: 100vh;
   background: ${({ theme }) => theme.colors.background};
 `
 
@@ -52,6 +52,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
     }
     .subtitle {
       margin-top: -0.75rem;
+      font-weight: 300;
     }
     .description {
       font-size: 1.125rem;
@@ -110,33 +111,46 @@ const Hero = ({ content }) => {
           data-testid="animated-heading"
         >
           <h1 className="title">
-            <div className="greetings">
-              {frontmatter.greetings}
-              <motion.div
-                animate={eControls}
-                style={{ originX: 0.7, originY: 0.7 }}
-              >
-                <Img
-                  className="emoji"
-                  fluid={frontmatter.icon.childImageSharp.fluid}
-                />
-              </motion.div>
-            </div>
+            {frontmatter.greetings && (
+              <div className="greetings">
+                {frontmatter.greetings}
+                {frontmatter.icon && (
+                  <motion.div
+                    animate={eControls}
+                    style={{ originX: 0.7, originY: 0.7 }}
+                  >
+                    <Img
+                      className="emoji"
+                      fluid={frontmatter.icon.childImageSharp.fluid}
+                    />
+                  </motion.div>
+                )}
+              </div>
+            )}
             {frontmatter.title}
           </h1>
           <h2 className="subtitle">
-            {frontmatter.subtitlePrefix}{" "}
-            <AnimatedUnderlining animate={uControls} big>
-              {frontmatter.subtitle}
-            </AnimatedUnderlining>
+            {"> "}
+            {frontmatter.subtitlePrefix}
+            {frontmatter.subtitle && (
+              <>
+                {" "}
+                <AnimatedUnderlining animate={uControls} big>
+                  {frontmatter.subtitle}
+                </AnimatedUnderlining>{" "}
+              </>
+            )}
+            {frontmatter.subtitleEnd}
           </h2>
           <div className="description">
             <MDXRenderer>{body}</MDXRenderer>
           </div>
         </motion.div>
-        <motion.div initial={{ opacity: 0, x: 20 }} animate={sControls}>
-          <Social fontSize=".95rem" padding=".3rem 1.25rem" width="auto" />
-        </motion.div>
+        {frontmatter.showSocial && (
+          <motion.div initial={{ opacity: 0, x: 20 }} animate={sControls}>
+            <Social fontSize=".95rem" padding=".3rem 1.25rem" width="auto" />
+          </motion.div>
+        )}
       </StyledContentWrapper>
     </StyledSection>
   )

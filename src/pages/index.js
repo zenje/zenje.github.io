@@ -36,8 +36,7 @@ const IndexPage = ({ data }) => {
           }
         />
         <Hero content={data.hero.edges} />
-        {/* Articles is populated via Medium RSS Feed fetch */}
-        <Articles />
+        {/* Articles is populated via Medium RSS Feed fetch <Articles /> */}
         <About content={data.about.edges} />
         <Interests content={data.interests.edges} />
         <Projects content={data.projects.edges} />
@@ -71,17 +70,10 @@ export const pageQuery = graphql`
         node {
           body
           frontmatter {
-            greetings
             title
             subtitlePrefix
             subtitle
-            icon {
-              childImageSharp {
-                fluid(maxWidth: 60, quality: 90) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
+            subtitleEnd
           }
         }
       }

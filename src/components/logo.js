@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 
-import { siteShortTitle } from "../../config"
+import { isShouldShowLogo, siteShortTitle } from "../../config"
 
 const StyledLogo = styled.div`
   position: relative;
@@ -20,7 +20,7 @@ const StyledLogo = styled.div`
 
 const Logo = ({ size, color }) => (
   <StyledLogo color={color} size={size}>
-    {siteShortTitle}
+    {isShouldShowLogo ? siteShortTitle : ""}
   </StyledLogo>
 )
 

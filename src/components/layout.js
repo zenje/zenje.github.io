@@ -1,8 +1,6 @@
 import React, { useContext } from "react"
 import PropTypes from "prop-types"
 import styled, { ThemeProvider } from "styled-components"
-import "fontsource-roboto/400.css"
-import "fontsource-roboto/700.css"
 
 import { lightTheme, darkTheme } from "../styles/theme"
 import { useDarkMode } from "../hooks"

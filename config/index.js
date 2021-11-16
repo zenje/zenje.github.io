@@ -1,14 +1,15 @@
 module.exports = {
   //-- SITE SETTINGS -----
-  author: "@konstantinmuenster",
+  author: "@zenje",
   siteTitle: "Gatsby Starter Portfolio Minimal",
-  siteShortTitle: "Gatsby", // Used as logo text in header, footer, and splash screen
+  siteShortTitle: "Jessica Zeng", // Used as logo text in header, footer, and splash screen
+  isShouldShowLogo: false,
   siteDescription:
     "A modern one-page portfolio with a clean yet expressive design.",
-  siteUrl: "https://gatsby-starter-portfolio-minimal.netlify.app/",
+  siteUrl: "https://zenje.github.io/",
   siteLanguage: "en_US",
   siteIcon: "content/favicon.png", // Relative to gatsby-config file
-  seoTitleSuffix: "Portfolio Minimal", // SEO title syntax will be e.g. "Imprint - {seoTitleSuffix}"
+  seoTitleSuffix: "Jessica Zeng", // SEO title syntax will be e.g. "Imprint - {seoTitleSuffix}"
   useCookieBar: false, // If you use Google Analytics and want to be GDPR-compliant, set it to true
   googleAnalyticsTrackingId: "", // e.g. UA-XXXXXX-X
 
@@ -19,6 +20,7 @@ module.exports = {
       secondary: "#FFF4D9",
       tertiary: "#F2F2F2",
       text: "#000000",
+      highlight: "#000000",
       subtext: "#555555",
       background: "#FFFFFF",
       card: "#FFFFFF",
@@ -31,16 +33,19 @@ module.exports = {
       secondary: "#2A2926",
       tertiary: "#252525",
       text: "rgba(255, 255, 255, 0.87)",
-      subtext: "#AAAAAA",
-      background: "#121212",
+      highlight: "#43AA8B",
+      subtext: "#F9C74F",
+      background: "#171f26",
       card: "#1C1C1C",
       scrollBar: "rgba(255, 255, 255, 0.5)",
       boxShadow: "rgba(0, 0, 0, 0.16)",
       boxShadowHover: "rgba(0, 0, 0, 0.32)",
     },
   },
+  // fonts are imported in globalStyle.js
   fonts: {
-    primary: "Roboto, Arial, sans-serif",
+    primary: "Karla, sans-serif",
+    header: "Josefin Sans, sans-serif",
   },
 
   //-- ARTICLES SECTION SETTINGS -----
@@ -83,15 +88,15 @@ module.exports = {
   navLinks: {
     menu: [
       {
-        name: "About Me",
+        name: "about",
         url: "/#about",
       },
       {
-        name: "Features",
+        name: "projects",
         url: "/#projects",
       },
       {
-        name: "Contact",
+        name: "contact",
         url: "/#contact",
       },
     ],

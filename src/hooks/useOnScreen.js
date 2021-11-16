@@ -2,28 +2,25 @@ import { useState, useEffect } from "react"
 
 // https://usehooks.com/useOnScreen/
 
-export default (ref, threshold = 0.25) => {
+export default (ref, rootMargin = "0px") => {
+  // State and setter for storing whether element is visible
   const [isIntersecting, setIntersecting] = useState(false)
-
   useEffect(() => {
-    const element = ref.current
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIntersecting(true)
-          observer.unobserve(entry.target)
-        }
+        // Update our state when observer callback fires
+        setIntersecting(entry.isIntersecting)
       },
       {
-        threshold,
+        rootMargin,
       }
     )
-    if (element) {
-      setTimeout(() => observer.observe(element), 3500)
+    if (ref.current) {
+      observer.observe(ref.current)
     }
     return () => {
-      observer.unobserve(element)
+      observer.unobserve(ref.current)
     }
-  }, [ref, threshold])
+  }, []) // Empty array ensures that effect is only run on mount and unmount
   return isIntersecting
 }

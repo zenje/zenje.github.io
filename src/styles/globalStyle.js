@@ -1,10 +1,36 @@
 import { createGlobalStyle } from "styled-components"
 import modernNormalize from "styled-modern-normalize"
+import Josefin from "../assets/JosefinSans-VariableFont_wght.ttf"
+import JosefinItalic from "../assets/JosefinSans-Italic-VariableFont_wght.ttf"
+import Karla from "../assets/Karla-VariableFont_wght.ttf"
+import KarlaItalic from "../assets/Karla-Italic-VariableFont_wght.ttf"
 
 const GlobalStyle = createGlobalStyle`
-    
+
     // Import normalize.css
     ${modernNormalize}
+
+    // Import fonts
+    @font-face {
+      font-family: 'Josefin Sans';
+      src: url(${Josefin}) format('truetype');
+      font-weight: 200 700;
+    }
+    @font-face {
+      font-family: 'Josefin Sans';
+      src: url(${JosefinItalic}) format('truetype');
+      font-style: italic;
+    }
+    @font-face {
+      font-family: 'Karla';
+      src: url(${Karla}) format('truetype');
+      font-weight: 200 700;
+    }
+    @font-face {
+      font-family: 'Karla';
+      src: url(${KarlaItalic}) format('truetype');
+      font-style: italic;
+    }
 
     * {
         box-sizing: border-box;
@@ -25,7 +51,7 @@ const GlobalStyle = createGlobalStyle`
         font-size: 1rem;
         font-family: ${({ theme }) => theme.fonts.primary};
         line-height: 1.5rem;
-        font-weight: 400;
+        font-weight: 300;
         text-rendering: optimizeLegibility;
         &.blur {
             overflow: hidden;
@@ -46,7 +72,8 @@ const GlobalStyle = createGlobalStyle`
         display: inline-block;
         text-decoration: none;
         text-decoration-skip-ink: auto;
-        color: inherit;
+        color: ${({ theme }) => theme.colors.highlight};
+        font-weight: 500;
         cursor: pointer;
         &:hover,
         &:focus {
@@ -54,19 +81,23 @@ const GlobalStyle = createGlobalStyle`
         }
     }
 
+    h1, h2, h3, h4 {
+      font-family: ${({ theme }) => theme.fonts.header};
+    }
+
     h1 {
-        font-weight: 700;
-        font-size: 2rem;
-        line-height: 2.375rem;
+        font-weight: 500;
+        font-size: 3rem;
+        line-height: 3.375rem;
         color: ${({ theme }) => theme.colors.primary};
         @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
-            font-size: 2.625rem;
+            font-size: 3.625rem;
             line-height: 4rem;
         }
     }
 
     h2 {
-        font-weight: 700;
+        font-weight: 500;
         font-size: 1.25rem;
         line-height: 1.5rem;
         color: ${({ theme }) => theme.colors.primary};
@@ -77,7 +108,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     h3 {
-        font-weight: 700;
+        font-weight: 500;
         font-size: 1.75rem;
         line-height: 2.25rem;
         color: ${({ theme }) => theme.colors.primary};
