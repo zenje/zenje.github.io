@@ -8,10 +8,10 @@ import { lightTheme, darkTheme } from "../styles/theme"
 import { socialMedia } from "../../config"
 
 const StyledSocialWrapper = styled.div`
-  display: grid;
+  display: flex;
   /* Calculate columns, depending on how many profiles there are */
   grid-template-columns: repeat(${({ itemCount }) => itemCount + 1}, auto);
-  justify-content: start;
+  justify-content: center;
   justify-items: start;
 
   margin-left: -2.5rem;
@@ -30,10 +30,10 @@ const StyledSocialWrapper = styled.div`
   }
 
   /* Workaround: https://stackoverflow.com/questions/38993170/last-margin-padding-collapsing-in-flexbox-grid-layout */
-  &::after {
+  /*&::after {
     content: "";
     width: 2.5rem;
-  }
+  }*/
 
   /* Show scrollbar if desktop and wrapper width > viewport width */
   @media (hover: hover) {

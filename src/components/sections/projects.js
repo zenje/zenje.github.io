@@ -115,6 +115,11 @@ const StyledProject = styled(motion.div)`
   flex-shrink: 0;
   padding-right: 2.5rem;
   max-width: 20rem;
+  transition: all 0.3s ease-out;
+  &:hover {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+  }
   @media (min-width: ${({ theme }) => theme.breakpoints.xs}) {
     max-width: 25rem;
     margin-top: 2rem;
@@ -129,6 +134,10 @@ const StyledProject = styled(motion.div)`
     /* Positioning of image and details should vary */
     flex-direction: ${({ position }) =>
       position % 2 !== 0 ? "row" : "row-reverse"};
+    &:hover {
+      margin-top: 1rem;
+      margin-bottom: 11rem;
+    }
   }
   .details {
     width: 100%;
@@ -182,20 +191,26 @@ const StyledProject = styled(motion.div)`
       }
     }
   }
-  .screenshot {
+  .screenshot-wrapper {
     width: 100%;
     max-width: 25rem;
-    height: 15rem;
+    display: flex;
+    flex-direction: column;
+    /*height: 15rem;*/
+    /*@media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+      height: 18.75rem;
+    }*/
+  }
+  .screenshot {
     border-radius: ${({ theme }) => theme.borderRadius};
     box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.16);
-    transition: all 0.3s ease-out;
-    &:hover {
-      transform: translate3d(0px, -0.125rem, 0px);
-      box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.32);
-    }
-    @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-      height: 18.75rem;
-    }
+    opacity: 1;
+    width: 100%;
+    display: block;
+  }
+  .screenshot-hidden {
+    opacity: 0;
+    display: none;
   }
 `
 
@@ -220,9 +235,10 @@ const Projects = ({ content }) => {
     }
   }
   const pVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0 },
   }
+  const [showPreview, setShowPreview] = useState({})
 
   useEffect(() => {
     // mobile and tablet only: set first project as visible in the
@@ -254,6 +270,12 @@ const Projects = ({ content }) => {
     visible: { opacity: 1 },
   }
 
+  const toggleShowPreview = key => {
+    let newShowPreview = { ...showPreview }
+    newShowPreview[key] = !newShowPreview[key]
+    setShowPreview(newShowPreview)
+  }
+
   return (
     <StyledSection id="projects">
       <StyledContentWrapper>
@@ -283,11 +305,19 @@ const Projects = ({ content }) => {
                   animate={
                     onScreen[frontmatter.position] ? "visible" : "hidden"
                   }
+                  onMouseEnter={
+                    frontmatter.preview ? () => toggleShowPreview(key) : null
+                  }
+                  onMouseLeave={
+                    frontmatter.preview ? () => toggleShowPreview(key) : null
+                  }
                 >
                   <div className="details">
-                    <div className="category">
-                      {frontmatter.emoji} {frontmatter.category}
-                    </div>
+                    {frontmatter.category && (
+                      <div className="category">
+                        {frontmatter.emoji} {frontmatter.category}
+                      </div>
+                    )}
                     <div className="title">{frontmatter.title}</div>
                     <MDXRenderer>{body}</MDXRenderer>
                     <div className="tags">
@@ -338,10 +368,22 @@ const Projects = ({ content }) => {
                   <VisibilitySensor
                     onChange={() => setVisibleProject(frontmatter.position)}
                   >
-                    <Img
-                      className="screenshot"
-                      fluid={frontmatter.screenshot.childImageSharp.fluid}
-                    />
+                    <>
+                      <div className="screenshot-wrapper">
+                        <Img
+                          className={`screenshot ${
+                            showPreview[key] ? "screenshot-hidden" : ""
+                          }`}
+                          fluid={frontmatter.screenshot.childImageSharp.fluid}
+                        />
+                        {frontmatter.preview && showPreview[key] && (
+                          <img
+                            className="screenshot"
+                            src={frontmatter.preview.path}
+                          />
+                        )}
+                      </div>
+                    </>
                   </VisibilitySensor>
                 </StyledProject>
               </VisibilitySensor>

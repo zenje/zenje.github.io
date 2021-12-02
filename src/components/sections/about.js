@@ -62,11 +62,20 @@ const StyledContentWrapper = styled(ContentWrapper)`
   }
 `
 
-const About = ({ content }) => {
+const getImage = images => {
+  const randomInt = i => Math.floor(Math.random() * i)
+  const randomImg = images[randomInt(images.length)].node
+  return (
+    <Img className="about-author" fluid={randomImg.childImageSharp.fluid} />
+  )
+}
+
+const About = ({ content, images }) => {
   const { frontmatter, body } = content[0].node
   const { isIntroDone } = useContext(Context).state
   const tControls = useAnimation()
   const iControls = useAnimation()
+  console.log("images", images)
 
   // Required for animating the text content
   const tRef = useRef()
@@ -78,7 +87,6 @@ const About = ({ content }) => {
 
   // Only trigger animations if the intro is done or disabled
   useEffect(() => {
-    console.log("tOnScreen: ", tOnScreen)
     if (isIntroDone) {
       if (tOnScreen) tControls.start({ opacity: 1, y: 0 })
       if (iOnScreen) iControls.start({ opacity: 1, x: 0 })
@@ -105,10 +113,7 @@ const About = ({ content }) => {
           initial={{ opacity: 0, x: 20 }}
           animate={iControls}
         >
-          <Img
-            className="about-author"
-            fluid={frontmatter.image.childImageSharp.fluid}
-          />
+          {getImage(images)}
         </motion.div>
       </StyledContentWrapper>
     </StyledSection>

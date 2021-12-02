@@ -8,7 +8,7 @@ import SEO from "../components/seo"
 import Hero from "../components/sections/hero"
 import Articles from "../components/sections/articles"
 import About from "../components/sections/about"
-import Interests from "../components/sections/interests"
+import Skills from "../components/sections/skills"
 import Projects from "../components/sections/projects"
 import Contact from "../components/sections/contact"
 import { seoTitleSuffix } from "../../config"
@@ -37,8 +37,8 @@ const IndexPage = ({ data }) => {
         />
         <Hero content={data.hero.edges} />
         {/* Articles is populated via Medium RSS Feed fetch <Articles /> */}
-        <About content={data.about.edges} />
-        <Interests content={data.interests.edges} />
+        <About content={data.about.edges} images={data.aboutImages.edges} />
+        <Skills content={data.skills.edges} />
         <Projects content={data.projects.edges} />
         <Contact content={data.contact.edges} />
       </Layout>
@@ -84,13 +84,32 @@ export const pageQuery = graphql`
           body
           frontmatter {
             title
-            image {
-              childImageSharp {
-                fluid(maxWidth: 400, quality: 90) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
+          }
+        }
+      }
+    }
+    aboutImages: allFile(
+      filter: {
+        absolutePath: { regex: "/index/about/" }
+        extension: { eq: "jpeg" }
+      }
+    ) {
+      edges {
+        node {
+          childImageSharp {
+            fluid(maxWidth: 400, quality: 90) {
+              ...GatsbyImageSharpFluid
             }
+          }
+        }
+      }
+    }
+    skills: allMdx(filter: { fileAbsolutePath: { regex: "/index/skills/" } }) {
+      edges {
+        node {
+          body
+          frontmatter {
+            title
           }
         }
       }
@@ -131,10 +150,11 @@ export const pageQuery = graphql`
           body
           frontmatter {
             title
-            category
-            emoji
             external
             github
+            preview {
+              path: publicURL
+            }
             screenshot {
               childImageSharp {
                 fluid(maxWidth: 400, quality: 90) {
@@ -144,9 +164,6 @@ export const pageQuery = graphql`
             }
             tags
             position
-            buttonVisible
-            buttonUrl
-            buttonText
           }
         }
       }
@@ -161,13 +178,6 @@ export const pageQuery = graphql`
             title
             name
             email
-            profileImage {
-              childImageSharp {
-                fluid(maxWidth: 400, quality: 90) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
           }
         }
       }
