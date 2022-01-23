@@ -75,7 +75,6 @@ const About = ({ content, images }) => {
   const { isIntroDone } = useContext(Context).state
   const tControls = useAnimation()
   const iControls = useAnimation()
-  console.log("images", images)
 
   // Required for animating the text content
   const tRef = useRef()
@@ -126,6 +125,13 @@ About.propTypes = {
       node: PropTypes.shape({
         body: PropTypes.string.isRequired,
         frontmatter: PropTypes.object.isRequired,
+      }).isRequired,
+    }).isRequired
+  ).isRequired,
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      node: PropTypes.shape({
+        childImageSharp: PropTypes.object.isRequired,
       }).isRequired,
     }).isRequired
   ).isRequired,

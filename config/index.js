@@ -87,6 +87,10 @@ module.exports = {
         url: "/#projects",
       },
       {
+        name: "art",
+        url: "https://art.jessiesday.com",
+      },
+      {
         name: "contact",
         url: "/#contact",
       },
