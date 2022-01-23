@@ -9,6 +9,25 @@ tags:
   - GraphQL
 visible: true
 position: 4
+description: "A place to drop my travel photography and other art, with more art to come! This was also an educational foray into the world of Gatsby and GraphQL - I tweaked an existing Gatsby starter, had fun doing it."
 ---
 
-A place to drop my travel photography and other art, with more art to come! This was also an educational foray into the world of Gatsby and GraphQL - I tweaked an existing Gatsby starter, had fun doing it.
+I take a lot of pictures, especially when somewhere new. For me, it’s about capturing a scene, _an ambiance_. As a result, I have a ton of photos taken on my beloved Olympus Pen that don’t get to see the light of day. So I thought, why not finally create a portfolio to display some of them?
+
+### Along the way
+
+I really enjoyed fiddling around with Gatsby and GraphQL. It’s a really elegant process. It was nice how easily query-able the data (photos in this case) was, and how simple it was to add new pages via new markdown files.
+
+This project was less development-heavy, but it took quite a while (and it’s not even finished), as I had to additionally go through all my photos, sorting and editing them. It was a thoughtful and intentional process that I had to do over many months.
+
+I also thought a lot about design, in terms of organization of photos as well as the prevailing aesthetic. I wanted to keep the look clean and minimal, with large, bold photos filling the full width of the screen. For the individual pages, I wanted to present photos in a scrollable format, with optional text that viewers could read, as if reading a blog post. Starting out with a nice Gatsby starter really helped.
+
+### Challenges
+
+The biggest challenge was unrelated to development: it was realizing that the generated build was too large and running into deployment issues. Originally, the site was hosted on Github pages, but with all the photos I was uploading, it quickly exceeded Github limits (1 GB per site). I initially didn’t realize this limit existed, and simply thought this was an issue with pushing to Git, so I naively attempted many workarounds. Finally, I was able to host the static site via Nginx on my own Ubuntu server (on a DigitalOcean droplet).
+
+### Going forward
+
+I’m still not sure if Gatsby was the best choice for a photography portfolio kind of site, especially as I add more photos. Is there a way to pre-render the photos and exclude them from the build process? Furthermore, I’m limited by the constraints of the DigitalOcean droplet, which only has so much memory. I’ll have to think more about how to handle scaling issues.
+
+I also hope to add a section for other art I’ve created to this site in the future!

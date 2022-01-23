@@ -2,7 +2,7 @@
 title: "earth-cities"
 screenshot: "./earth-cities2.png"
 preview: "./earth-cities-preview2.gif"
-github: "https://github.com/zenje/earth-cities"
+github: "https://github.com/zenje/cities"
 external: "https://earth-cities.herokuapp.com/"
 tags:
   - React
@@ -11,6 +11,11 @@ tags:
   - Heroku
 visible: true
 position: 3
+description: "A client-side React app that displays cities by population on a world map; users can click on cities to learn more (sourced from Wikipedia)."
 ---
 
-A client-side React app that displays cities by population on a world map; users can click on cities to learn more (sourced from Wikipedia).
+_**Note:** Heroku takes some time to load._
+
+A simple app, made primarily because I wanted to explore SVGs, and I wanted to do something with a map. I thought it’d be fun to be able to click around a map and learn about cities along the way.
+
+[react-simple-maps](https://www.react-simple-maps.io/), true to its name, made displaying the map simple! At this point, I was pretty familiar with deploying apps on Heroku, so it was simple to push and deploy. The trickiest part was probably searching for cities and extracting data from the Wikipedia API - the code attempts to find the best match, but some of the obscurer cities still fetch incorrect descriptions from Wikipedia. I also experimented a lot with animations, but couldn’t fully animate everything the way I envisioned. In future, I’d like to finesse the display of the circles especially on zoom (it’s hard to click on overlapping circles).

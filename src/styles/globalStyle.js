@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components"
+import "bootstrap/dist/css/bootstrap.min.css"
 import modernNormalize from "styled-modern-normalize"
 import Josefin from "../assets/JosefinSans-VariableFont_wght.ttf"
 import JosefinItalic from "../assets/JosefinSans-Italic-VariableFont_wght.ttf"

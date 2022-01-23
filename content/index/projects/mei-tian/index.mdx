@@ -11,6 +11,24 @@ tags:
   - Heroku
 visible: true
 position: 2
+description: "A React-Flask-based Chinese-English dictionary app. Includes HSK2.0 and HSK3.0 word lists, allows for lookup of Chinese words, showing definitions and fetching example sentences."
 ---
 
-A React-Flask-based Chinese-English dictionary app. Includes HSK2.0 and HSK3.0 word lists, allows for lookup of Chinese words, showing definitions and fetching example sentences.
+_**Note:** Heroku takes some time to load. Also, the backend server may currently be down, which is something I need to look into._
+
+As I was studying Chinese and looking through the HSK word lists, it occurred to me that it’d be fun to create an app for it. My idea was to have a one stop shop for Chinese word lookups - getting the definitions as well as sample sentences. I called it “mei-tian”, which means “every day” in Chinese. The home page displays a random word and its definition - learn a new word every day!
+
+### New things I learned
+
+- How to create and publish a python package
+- How to set up Flask as a backend and serve it with Gunicorn on Heroku
+- How to create an API with Flask
+- How to work with React Context and useReducer to store and pass down global variables
+
+### Overall thoughts
+
+Setting up the front-end for this project was, for the most part, straightforward. What was less straightforward was how to connect the frontend and backend pieces together and how to serve the app locally, and then on production. I had to wrap my head around the concept of going from running the two servers simultaneously during development to running just the Flask server on production and configuring a proxy redirection from React to Flask, in order to let the frontend connect to the API.
+
+It was also interesting to program with Python - to explore Flask, build an API with it, and create my own python package. I had previously never really worked with Python before, outside using it for some small programming exercises. I’m not sure if I would use these React and Flask together again, but it was an interesting option to explore.
+
+I’m also still exploring the concept of sessions and saving data per individual user so as to support flashcards.

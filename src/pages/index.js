@@ -164,6 +164,7 @@ export const pageQuery = graphql`
             }
             tags
             position
+            description
           }
         }
       }

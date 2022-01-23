@@ -102,6 +102,7 @@ const Hero = ({ content }) => {
     pageLoadSequence()
   }, [isIntroDone, darkMode, eControls, gControls, sControls, uControls])
 
+  console.log("body", body)
   return (
     <StyledSection id="hero">
       <StyledContentWrapper>
@@ -142,9 +143,11 @@ const Hero = ({ content }) => {
             )}
             {frontmatter.subtitleEnd}
           </h2>
-          <div className="description">
-            <MDXRenderer>{body}</MDXRenderer>
-          </div>
+          {body && (
+            <div className="description">
+              <MDXRenderer>{body}</MDXRenderer>
+            </div>
+          )}
         </motion.div>
         {frontmatter.showSocial && (
           <motion.div initial={{ opacity: 0, x: 20 }} animate={sControls}>

@@ -12,6 +12,8 @@ import ContentWrapper from "../../styles/contentWrapper"
 import Underlining from "../../styles/underlining"
 import Button from "../../styles/button"
 import Icon from "../../components/icons"
+import ProjectModal from "../../components/projectModal"
+import Modal from "react-bootstrap/Modal"
 import { lightTheme, darkTheme } from "../../styles/theme"
 
 const StyledSection = styled.section`
@@ -239,6 +241,8 @@ const Projects = ({ content }) => {
     visible: { opacity: 1, y: 0 },
   }
   const [showPreview, setShowPreview] = useState({})
+  const [showModal, setShowModal] = useState(false)
+  const [modalProject, setModalProject] = useState(null)
 
   useEffect(() => {
     // mobile and tablet only: set first project as visible in the
@@ -276,138 +280,156 @@ const Projects = ({ content }) => {
     setShowPreview(newShowPreview)
   }
 
+  const handleCloseModal = () => {
+    setShowModal(false)
+  }
+
   return (
-    <StyledSection id="projects">
-      <StyledContentWrapper>
-        <motion.div
-          ref={tRef}
-          variants={tVariants}
-          animate={tOnScreen ? "visible" : "hidden"}
-        >
-          <h3 className="section-title">{sectionDetails.frontmatter.title}</h3>
-          <div className="counter">
-            {visibleProject} / {projects.length}
-          </div>
-        </motion.div>
-        <div className="projects">
-          {projects.map((project, key) => {
-            const { body, frontmatter } = project.node
-            return (
-              <VisibilitySensor
-                key={key}
-                onChange={() => handleOnScreen(key + 1)}
-                partialVisibility={true}
-                minTopValue={100}
-              >
-                <StyledProject
-                  position={key + 1}
-                  variants={pVariants}
-                  animate={
-                    onScreen[frontmatter.position] ? "visible" : "hidden"
-                  }
-                  onMouseEnter={
-                    frontmatter.preview ? () => toggleShowPreview(key) : null
-                  }
-                  onMouseLeave={
-                    frontmatter.preview ? () => toggleShowPreview(key) : null
-                  }
+    <>
+      <StyledSection id="projects">
+        <ProjectModal
+          show={showModal}
+          handleClose={handleCloseModal}
+          project={modalProject}
+        />
+        <StyledContentWrapper>
+          <motion.div
+            ref={tRef}
+            variants={tVariants}
+            animate={tOnScreen ? "visible" : "hidden"}
+          >
+            <h3 className="section-title">
+              {sectionDetails.frontmatter.title}
+            </h3>
+            <MDXRenderer>{sectionDetails.body}</MDXRenderer>
+            <div className="counter">
+              {visibleProject} / {projects.length}
+            </div>
+          </motion.div>
+          <div className="projects">
+            {projects.map((project, key) => {
+              const { body, frontmatter } = project.node
+              return (
+                <VisibilitySensor
+                  key={key}
+                  onChange={() => handleOnScreen(key + 1)}
+                  partialVisibility={true}
+                  minTopValue={100}
                 >
-                  <div className="details">
-                    {frontmatter.category && (
-                      <div className="category">
-                        {frontmatter.emoji} {frontmatter.category}
-                      </div>
-                    )}
-                    <div className="title">{frontmatter.title}</div>
-                    <MDXRenderer>{body}</MDXRenderer>
-                    <div className="tags">
-                      {frontmatter.tags.map(tag => (
-                        <Underlining key={tag} highlight>
-                          {tag}
-                        </Underlining>
-                      ))}
-                    </div>
-                    <div className="links">
-                      {frontmatter.github && (
-                        <a
-                          href={frontmatter.github}
-                          target="_blank"
-                          rel="nofollow noopener noreferrer"
-                          aria-label="External Link"
-                        >
-                          <Icon
-                            name="github"
-                            color={
-                              darkMode
-                                ? darkTheme.colors.subtext
-                                : lightTheme.colors.subtext
-                            }
-                          />
-                        </a>
-                      )}
-                      {frontmatter.external && (
-                        <a
-                          href={frontmatter.external}
-                          target="_blank"
-                          rel="nofollow noopener noreferrer"
-                          aria-label="External Link"
-                        >
-                          <Icon
-                            name="external"
-                            color={
-                              darkMode
-                                ? darkTheme.colors.subtext
-                                : lightTheme.colors.subtext
-                            }
-                          />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                  {/* If image in viewport changes, update state accordingly */}
-                  <VisibilitySensor
-                    onChange={() => setVisibleProject(frontmatter.position)}
+                  <StyledProject
+                    position={key + 1}
+                    variants={pVariants}
+                    animate={
+                      onScreen[frontmatter.position] ? "visible" : "hidden"
+                    }
+                    onMouseEnter={
+                      frontmatter.preview ? () => toggleShowPreview(key) : null
+                    }
+                    onMouseLeave={
+                      frontmatter.preview ? () => toggleShowPreview(key) : null
+                    }
+                    onClick={() => {
+                      setShowModal(true)
+                      setModalProject(project)
+                    }}
                   >
-                    <>
-                      <div className="screenshot-wrapper">
-                        <Img
-                          className={`screenshot ${
-                            showPreview[key] ? "screenshot-hidden" : ""
-                          }`}
-                          fluid={frontmatter.screenshot.childImageSharp.fluid}
-                        />
-                        {frontmatter.preview && showPreview[key] && (
-                          <img
-                            className="screenshot"
-                            src={frontmatter.preview.path}
-                          />
+                    <div className="details">
+                      {frontmatter.category && (
+                        <div className="category">
+                          {frontmatter.emoji} {frontmatter.category}
+                        </div>
+                      )}
+                      <div className="title">{frontmatter.title}</div>
+                      <>{frontmatter.description}</>
+                      <div className="tags">
+                        {frontmatter.tags.map(tag => (
+                          <Underlining key={tag} highlight>
+                            {tag}
+                          </Underlining>
+                        ))}
+                      </div>
+                      <div className="links">
+                        {frontmatter.github && (
+                          <a
+                            href={frontmatter.github}
+                            target="_blank"
+                            rel="nofollow noopener noreferrer"
+                            aria-label="External Link"
+                          >
+                            <Icon
+                              name="github"
+                              color={
+                                darkMode
+                                  ? darkTheme.colors.subtext
+                                  : lightTheme.colors.subtext
+                              }
+                            />
+                          </a>
+                        )}
+                        {frontmatter.external && (
+                          <a
+                            href={frontmatter.external}
+                            target="_blank"
+                            rel="nofollow noopener noreferrer"
+                            aria-label="External Link"
+                          >
+                            <Icon
+                              name="external"
+                              color={
+                                darkMode
+                                  ? darkTheme.colors.subtext
+                                  : lightTheme.colors.subtext
+                              }
+                            />
+                          </a>
                         )}
                       </div>
-                    </>
-                  </VisibilitySensor>
-                </StyledProject>
-              </VisibilitySensor>
-            )
-          })}
-        </div>
-      </StyledContentWrapper>
-      {sectionDetails.frontmatter.buttonVisible && (
-        <motion.a
-          ref={bRef}
-          variants={bVariants}
-          animate={bOnScreen ? "visible" : "hidden"}
-          className="cta-btn"
-          href={sectionDetails.frontmatter.buttonUrl}
-          target="_blank"
-          rel="nofollow noopener noreferrer"
-          aria-label="External Link"
-        >
-          <Button type="button" textAlign="center" center>
-            {sectionDetails.frontmatter.buttonText}
-          </Button>
-        </motion.a>
-      )}
-    </StyledSection>
+                    </div>
+                    {/* If image in viewport changes, update state accordingly */}
+                    <VisibilitySensor
+                      onChange={() => setVisibleProject(frontmatter.position)}
+                    >
+                      <>
+                        <div className="screenshot-wrapper">
+                          <Img
+                            className={`screenshot ${
+                              showPreview[key] ? "screenshot-hidden" : ""
+                            }`}
+                            fluid={frontmatter.screenshot.childImageSharp.fluid}
+                          />
+                          {frontmatter.preview && showPreview[key] && (
+                            <img
+                              className="screenshot"
+                              src={frontmatter.preview.path}
+                            />
+                          )}
+                        </div>
+                      </>
+                    </VisibilitySensor>
+                  </StyledProject>
+                </VisibilitySensor>
+              )
+            })}
+          </div>
+        </StyledContentWrapper>
+        {sectionDetails.frontmatter.buttonVisible && (
+          <motion.a
+            ref={bRef}
+            variants={bVariants}
+            animate={bOnScreen ? "visible" : "hidden"}
+            className="cta-btn"
+            href={sectionDetails.frontmatter.buttonUrl}
+            target="_blank"
+            rel="nofollow noopener noreferrer"
+            aria-label="External Link"
+          >
+            <Button type="button" textAlign="center" center>
+              {sectionDetails.frontmatter.buttonText}
+            </Button>
+          </motion.a>
+        )}
+      </StyledSection>
+    </>
   )
 }
 

@@ -9,12 +9,51 @@ tags:
   - Redux
   - Express
   - Node.js
+  - styled-components
   - Spotify API
   - Genius API
   - Last.fm API
   - Heroku
 visible: true
 position: 1
+description: "A visualizer of an individual user’s Spotify activity and listening trends; additionally fetches lyrics and info about artists. Developed completely on an iPad."
 ---
 
-A visualizer of an individual Spotify user’s listening trends; additionally fetches lyrics and info about artists. Developed completely on an iPad.
+_**Note:** Heroku takes some time to load._
+
+As someone who made the top 98% for most hours listened on Spotify in 2021... one might say that I enjoy listening to music. I’m often jumping around new genres, searching for new artists to listen to.
+
+I had a thought to make a fun, visually appealing (I hope) app using the Spotify API. I envisioned a colorful, retro-but-modern display of a user’s most enjoyed artists, showing listening trends, artist info, and more. And so this project was born!
+
+### Things I learned
+
+This whole app was very experimental in terms of diving into web development and trying as many new things as possible. I got to experiment with a lot of different tools and technologies, different libraries and APIs.
+
+- How to structure and organize a larger project; how to theme and keep variables consistent across
+- How to deploy on Heroku
+- How to create, publish, and upversion my own npm package
+- More about webpack configurations
+- How to set up a simple node.js / express server and build an API with it
+- A refresher on React and React+Redux, especially with structuring reducers and actions using Redux
+- How to create and utilize custom hooks in React
+- How to use React Router for navigating to different sections
+- How to use styled-components
+- How to make some cool CSS animations; also got to play around with react-spring animations
+- Developing for different screen resolutions is hard, but I got to play around with media queries
+- A workflow for web development on an iPad
+
+### Some limitations
+
+- Spotify's API only provides basic data on top artists, genres, listening history. I would love if the API provided more detail into listening history so as to run a more in-depth analysis on listening trends, to display more interesting graphs and visualizations over time. I learned to evolve my requirements to what was possible and to utilize other APIs to get additional data (e.g., lyrics for songs, more info on artists).
+- Animations are hard. I struggled for a while trying to get certain effects, such as loading the artist grid incrementally, picture by picture, without lag. Somehow, Material UI's grid refused to cooperate with those effects, and I took out that animation sequence.
+- Web development on an iPad is surprisingly viable with the Blink terminal app, a Linux server to ssh into, a code editor app, and another app to SFTP transfer over files. However, in addition to being limited by the physical setup (small, flat keyboard in front of an 11” screen), lacking browser dev tools was difficult (even though I found a similar app that helped me inspect elements). Also, I wasn’t able to test click / hover events.
+
+### Challenges and closing thoughts
+
+This project was quite fun to develop, though not without its share of difficulties along the way. It was ambitious.
+
+It was the first time I deployed onto Heroku, the first time I set up a node.js server myself, the first app I developed on my iPad. I ran into a lot of trouble deploying, getting Webpack to behave, authenticating and connecting to the Spotify API, and more. There were many points where I almost gave up after days of being unsuccessful, but thankfully, the Internet is a wealth of shared knowledge and shared developer struggles, and I am persistent.
+
+It helped to think about project structure, look at other public projects on the web for reference, and break down each part of the app into smaller chunks. The app also had a lot of evolution along the way - I had a loose picture of the end goal, adding features along the way as new ideas popped up in my head. This was a fun development process!
+
+Each step was a new challenge, and I'm quite happy with the overall result.
