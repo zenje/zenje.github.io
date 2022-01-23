@@ -102,7 +102,6 @@ const Hero = ({ content }) => {
     pageLoadSequence()
   }, [isIntroDone, darkMode, eControls, gControls, sControls, uControls])
 
-  console.log("body", body)
   return (
     <StyledSection id="hero">
       <StyledContentWrapper>

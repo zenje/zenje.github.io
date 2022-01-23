@@ -10,8 +10,6 @@ module.exports = {
   siteLanguage: "en_US",
   siteIcon: "content/sunflower-favicon.png", // Relative to gatsby-config file
   seoTitleSuffix: "Jessica Zeng", // SEO title syntax will be e.g. "Imprint - {seoTitleSuffix}"
-  useCookieBar: false, // If you use Google Analytics and want to be GDPR-compliant, set it to true
-  googleAnalyticsTrackingId: "", // e.g. UA-XXXXXX-X
 
   // -- THEME SETTINGS -----
   colors: {
